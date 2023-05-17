@@ -33,5 +33,14 @@ class Level {
       }
     } 
   }
-
+  public String toString() {
+    String x = "";
+    for (int[] row : level) {
+      for (int tile : row) {
+        x += tile + " ";
+      }
+      x += "\n";
+    }
+    return x;
+  }
 }
