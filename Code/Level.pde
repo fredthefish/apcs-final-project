@@ -1,5 +1,5 @@
 class Level {
-  private String imagePath;
+  String imagePath;
   public int[][] level;
   /*
   0 for nothing
