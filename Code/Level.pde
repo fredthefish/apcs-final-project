@@ -1,10 +1,11 @@
 class Level {
   String imagePath;
   public int[][] level;
-  private int scale = 64; // for each pixel in image, this many pixels should be drawn on screen
-  public Level(String imagePath) {
+  private int scale; // for each pixel in image, this many pixels should be drawn on screen
+  public Level(String imagePath, int screenSize) {
     this.imagePath = imagePath;
     parseImage(imagePath);
+    scale = screenSize / level.length;
   }
   
   private void parseImage(String path) {
@@ -30,9 +31,10 @@ class Level {
   }
   
   public void drawLevel() {
+    noStroke();
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
-       //fill( helperfunctioN(level[y][x])
+       fill(Helpers.getColor(level[y][x]));
        rect(x * scale, y * scale, scale, scale);
       }
     }
