@@ -4,8 +4,9 @@ static class Helpers {
   black for solid
   red for lava
   green for goal
+  yellow for spawnpoint
   */
-  static color[] colors = new color[] {#FFFFFF, #000000, #FF0000, #00FF00};
+  static color[] colors = new color[] {#FFFFFF, #000000, #FF0000, #00FF00, #FFFF00};
   
   public static color getColor(int tile) {
     return colors[tile];
