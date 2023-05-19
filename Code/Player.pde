@@ -10,7 +10,7 @@ class Player {
     //ADD REST OF CODE
   }
   
-  public drawPlayer() {
+  public void drawPlayer() {
     circle(x, y, extent);
   }
 }

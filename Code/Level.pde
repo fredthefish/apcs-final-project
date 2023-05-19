@@ -44,7 +44,7 @@ class Level {
   public int[] findSpawn() {
     for (int y = 0; y < level.length; y++) {
       for (int x = 0; x < level[0].length; x++) {
-        if (level[y][x] = #FFFF00) {
+        if (Helpers.getColor(level[y][x]) == #FFFF00) {
           int[] coords = new int[] {x, y};
           return coords;
         }
