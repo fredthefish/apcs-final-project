@@ -35,10 +35,12 @@ class Level {
     noStroke();
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
-       color type = Helpers.getColor(level[y][x]);
-       fill(type);
-       if (type == #FFFF00) fill(#FFFFFF);
-       rect(x * scale, y * scale, scale, scale);
+        //TODO: Check if it's touching the player, if so, add that tile to some list.
+        color type = Helpers.getColor(level[y][x]);
+        fill(type);
+        //Hide yellow tiles (spawn area).
+        if (type == #FFFF00) fill(#FFFFFF);
+        rect(x * scale, y * scale, scale, scale);
       }
     }
   }
