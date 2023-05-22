@@ -1,6 +1,11 @@
 final float AIR_RESISTANCE = 0.9;
 final float GRAVITY = 1;
 final float ACCELERATION = 1;
+final float JUMP = 8;
+
+public boolean left;
+public boolean right;
+public boolean up;
 
 class Player {
   float x;
@@ -26,8 +31,21 @@ class Player {
     dy *= AIR_RESISTANCE;
     
     if (keyPressed) {
-      if (keyCode == LEFT) dx += -ACCELERATION;
-      if (keyCode == RIGHT) dx += ACCELERATION;
+      if (left) dx += -ACCELERATION;
+      if (right) dx += ACCELERATION;
+      if (up) dy = -JUMP;
     }
   }
+}
+
+void keyPressed() {
+  if (keyCode == LEFT) left = true;
+  else if (keyCode == RIGHT) right = true;
+  else if (keyCode == UP) up = true;
+}
+
+void keyReleased() {
+  if (keyCode == LEFT) left = false;
+  else if (keyCode == RIGHT) right = false;
+  else if (keyCode == UP) up = false;
 }
