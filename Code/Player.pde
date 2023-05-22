@@ -15,5 +15,8 @@ class Player {
   public void drawPlayer() {
     fill(#0000FF);
     circle(x, y, extent);
+    y += dy;
+    x += dx;
+    dy += 1; //Gravity
   }
 }
