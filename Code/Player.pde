@@ -1,3 +1,7 @@
+final float AIR_RESISTANCE = 0.9;
+final float GRAVITY = 1;
+final float ACCELERATION = 1;
+
 class Player {
   float x;
   float y;
@@ -17,6 +21,13 @@ class Player {
     circle(x, y, extent);
     y += dy;
     x += dx;
-    dy += 1; //Gravity
+    dy += GRAVITY;
+    dx *= AIR_RESISTANCE;
+    dy *= AIR_RESISTANCE;
+    
+    if (keyPressed) {
+      if (keyCode == LEFT) dx += -ACCELERATION;
+      if (keyCode == RIGHT) dx += ACCELERATION;
+    }
   }
 }
