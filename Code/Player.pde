@@ -7,10 +7,13 @@ class Player {
   
   public Player(Level level) {
     int[] coords = level.findSpawn();
-    //ADD REST OF CODE
+    x = level.scale * (coords[0] + 0.5);
+    y = level.scale * (coords[1] + 0.5);
+    extent = level.scale * 0.75;
   }
   
   public void drawPlayer() {
+    fill(#0000FF);
     circle(x, y, extent);
   }
 }
