@@ -2,6 +2,7 @@ class Level {
   String imagePath;
   public int[][] level;
   public int scale; // for each pixel in image, this many pixels should be drawn on screen
+  public ArrayList<int[]> playerCollisions;
   
   public Level(String imagePath) {
     this.imagePath = imagePath;
@@ -32,15 +33,18 @@ class Level {
   }
   
   public void drawLevel() {
+    playerCollisions = new ArrayList<int[]>();
     noStroke();
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
-        //TODO: Check if it's touching the player, if so, add that tile to some list.
         color type = Helpers.getColor(level[y][x]);
         fill(type);
         //Hide yellow tiles (spawn area).
         if (type == #FFFF00) fill(#FFFFFF);
         rect(x * scale, y * scale, scale, scale);
+        if (player != null)
+        if (Helpers.collision(player, x*scale, y*scale, scale))
+          playerCollisions.add(new int[] {x, y});
       }
     }
   }

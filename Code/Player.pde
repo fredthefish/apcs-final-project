@@ -8,33 +8,45 @@ public boolean right;
 public boolean up;
 
 class Player {
-  float x;
-  float y;
+  public float x;
+  public float y;
   float dx;
   float dy;
-  float extent;
+  public float extent;
   
-  public Player(Level level) {
-    int[] coords = level.findSpawn();
-    x = level.scale * (coords[0] + 0.5);
-    y = level.scale * (coords[1] + 0.5);
+  public Player() {
+    resetPos();
     extent = level.scale * 0.75;
   }
   
   public void drawPlayer() {
     fill(#0000FF);
     circle(x, y, extent);
-    y += dy;
-    x += dx;
-    dy += GRAVITY;
-    dx *= AIR_RESISTANCE;
-    dy *= AIR_RESISTANCE;
     
     if (keyPressed) {
       if (left) dx += -ACCELERATION;
       if (right) dx += ACCELERATION;
       if (up) dy = -JUMP;
     }
+    ArrayList<Integer> touches = new ArrayList<Integer>();
+    for (int[] tile : level.playerCollisions) 
+      touches.add(level.level[tile[1]][tile[0]]);
+    if (touches.contains(2)) resetPos();
+    
+    if (!touches.contains(1)) y += dy;
+    else y += -1;
+    x += dx;
+    dy += GRAVITY;
+    dx *= AIR_RESISTANCE;
+    dy *= AIR_RESISTANCE;
+  }
+  
+  void resetPos() {
+    int[] coords = level.findSpawn();
+    x = level.scale * (coords[0] + 0.5);
+    y = level.scale * (coords[1] + 0.5);
+    dx = 0;
+    dy = 0;
   }
 }
 

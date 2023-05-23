@@ -17,12 +17,15 @@ static class Helpers {
         return i;
     return -1;
   }
-  public static boolean isColliding(int x1, int y1, int width1, int x2, int y2, int width2) {
-    // check if 1 is colliding with 2
-    //if ((x1 >= x2 && x1 <= x2 + width2) && (y1 >= y2 && y1 <= y2 + width2))
-    //  return true;
-    if (y1 + width1 == y2 || y1 == y2 + width2 || x1 + width1 == x2 || x1 == y2 + width2)
-      return true;
-    return false;
+  public static boolean collision
+ (Player player, float tilex, float tiley, float size) {
+   float x = player.x;
+   float y = player.y;
+   float r = player.extent / 2;
+   return (
+     x + r > tilex &&
+     y + r > tiley &&
+     x - r < tilex + size &&
+     y - r < tiley + size);
   }
 }
