@@ -49,6 +49,18 @@ class Level {
     }
   }
   
+  public ArrayList<int[]> getCollisions() {
+    playerCollisions = new ArrayList<int[]>();
+    for (int y = 0; y < level.length; ++y){
+      for (int x = 0; x < level[0].length; ++x) {
+        if (player != null)
+        if (Helpers.collision(player, x*scale, y*scale, scale))
+          playerCollisions.add(new int[] {x, y});
+      }
+    }
+    return playerCollisions;
+  }
+  
   public int[] findSpawn() {
     for (int y = 0; y < level.length; y++) {
       for (int x = 0; x < level[0].length; x++) {
