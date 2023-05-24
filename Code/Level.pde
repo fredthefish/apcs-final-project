@@ -1,5 +1,8 @@
+
 class Level {
   String imagePath;
+  PImage[] SPRITES = new PImage[]{
+  loadImage("../Sprites/top_ground.png"), loadImage("../Sprites/bg.png")};
   public int[][] level;
   public int scale; // for each pixel in image, this many pixels should be drawn on screen
   
@@ -33,16 +36,27 @@ class Level {
   
   public void drawLevel() {
     noStroke();
+    image(SPRITES[1], 0, 0)
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
-        //TODO: Check if it's touching the player, if so, add that tile to some list.
-        color type = Helpers.getColor(level[y][x]);
-        fill(type);
+        
         //Hide yellow tiles (spawn area).
-        if (type == #FFFF00) fill(#FFFFFF);
-        rect(x * scale, y * scale, scale, scale);
+        //if (type == #FFFF00) fill(#FFFFFF);
+        if (level[y][x] != 0) { 
+                PImage sprite = returnSprite(level[y][x]);
+        image(sprite, x * scale, y * scale);
+          }
+
       }
     }
+  }
+  
+  private PImage returnSprite(int tile) {
+    switch(tile) {
+      case 1:
+        return SPRITES[0];
+    }
+    return SPRITES[0];
   }
   
   public int[] findSpawn() {
