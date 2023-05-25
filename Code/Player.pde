@@ -3,7 +3,7 @@ final float FRICTION = 0.5;
 final float GRAVITY = 1;
 final float MOVEMENT = 4;
 final float JUMP = 20;
-final float MAX_SLOPE = 12;
+final float MAX_SLOPE = 18;
 
 public boolean left;
 public boolean right;
