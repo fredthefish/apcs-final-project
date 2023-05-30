@@ -31,6 +31,7 @@ class Player {
     if (touches.contains(2)) Die();
     touchingGround = touches.contains(1);
     if (touches.contains(1)) exitGround();
+    if (touches.contains(3)) setLevel(num+1);
     
     if (keyPressed) {
       if (left) dx += -MOVEMENT;
@@ -43,6 +44,7 @@ class Player {
     dx *= FRICTION;
     dy *= AIR_RESISTANCE;
     if (y > height) Die();
+    if (y < extent / 2) y = extent / 2;
     if (x < extent / 2) x = extent / 2;
     if (x > width - extent / 2) x = width - extent / 2;
   }
