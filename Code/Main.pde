@@ -21,6 +21,6 @@ public void setLevel(int levelNum) {
     level.drawLevel();
     player = new Player();
   } catch(Exception e) {
-    setLevel(1);
+    setLevel(1); //Temp
   }
 }
