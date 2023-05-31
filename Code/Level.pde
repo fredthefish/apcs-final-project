@@ -1,25 +1,14 @@
-int[][][] SPRITE_TEMPLATES = new int[][][]{
-  {
-    {0, 0, 0},
-    {1, 1, 1},
-    {0, 0, 0}
-  },
-  {
-    {0, 0, 0},
-    {1, 1, 1},
-    {0, 0, 0}
-  },
-};
 class Level {
   String imagePath;
-  PImage background = loadImage("../Sprites/bg.png");
-  PImage[] SPRITES = new PImage[]{
-  loadImage("../Sprites/top_ground.png"), };
+  PImage bg;
+  PImage[] SPRITES;
+  PImage nullsprite = loadImage("../Sprites/nullsprite.png");
   public int[][] level;
   public int scale; // for each pixel in image, this many pixels should be drawn on screen
   
-  public Level(String imagePath, PImage[] sprites) {
+  public Level(String imagePath, PImage[] sprites, PImage bg) {
     this.SPRITES = sprites;
+    this.bg = bg;
     this.imagePath = imagePath;
     parseImage(imagePath);
     scale = width / level.length;
@@ -49,41 +38,42 @@ class Level {
   
   public void drawLevel() {
     noStroke();
-    image(background, 0, 0);
+    image(bg, 0, 0);
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
         
         //Hide yellow tiles (spawn area).
         //if (type == #FFFF00) fill(#FFFFFF);
-        if (level[y][x] != 0 && level[y][x] != 4 && level[y][x] != 3 && level[y][x] != 2 && returnSprite(x, y) != -1) { 
-                PImage sprite = SPRITES[returnSprite(x, y)];
+        if (level[y][x] != 0 && level[y][x] != 4 && level[y][x] != 3 && level[y][x] != 2 /*&& returnSprite(x, y) != -1*/) { 
+                PImage sprite = returnSprite(x, y);
                 image(sprite, x * scale, y * scale);
           }
-
       }
     }
   }
-  //returns index of sprite in sprite array
-  private int returnSprite(int x, int y) {
-    int yMinus1 = y - 1 < 0 ? 1 : y - 1;
-    int yPlus1 = y + 1 <= height ? 1 : y + 1;
-    int xMinus1 = x - 1 < 0 ? 1 : x - 1;
-    int xPlus1 = x + 1 <= width ? 1 : x + 1;
+  //returns sprites based on tiles around it
+  private PImage returnSprite(int x, int y) {
+    int yMinus1 = y - 1 < 0 ? 1 : level[y - 1][x];
+    int yPlus1 = y + 1 >= level.length ? 1 : level[y + 1][x];
+    int xMinus1 = x - 1 < 0 ? 1 : level[y][x - 1];
+    int xPlus1 = x + 1 >= level[0].length ? 1 : level[y][x + 1];
 
-    int[][] surroundingGrid = new int[][]{
-    {level[yMinus1][xMinus1], level[yMinus1][x], level [yMinus1][xPlus1]},
-    {level[y][xMinus1], level[y][x], level [y][xPlus1]},
-    {level[yPlus1][xMinus1], level[yPlus1][x], level [yPlus1][xPlus1]},
-    };
-    for (int[] row : surroundingGrid) {
-      for (int i : row) { System.out.print(i + " ");}
-      System.out.println(" ");
+    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) {     // check if floating
+      return SPRITES[0];
     }
-    System.out.println();
-    int i = java.util.Arrays.asList(SPRITE_TEMPLATES).indexOf(surroundingGrid);
-  
-    return i;
+    if (yMinus1 == 0 && yPlus1 == 1 && xPlus1 == 1 && xMinus1 == 1) { // check if top ground
+      return SPRITES[1];
+    } 
+    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if top left
+      return SPRITES[2];
+    }
+    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top left
+      return SPRITES[3];
+    }
+     return nullsprite;
   }
+  
+  private boolean isAir(int x, int y) {} // returns air if the thing is anything but a ground
   
   public int[] findSpawn() {
     for (int y = 0; y < level.length; y++) {
