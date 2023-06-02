@@ -53,10 +53,10 @@ class Level {
   }
   //returns sprites based on tiles around it
   private PImage returnSprite(int x, int y) {
-    int yMinus1 = y - 1 < 0 ? 1 : level[y - 1][x];
-    int yPlus1 = y + 1 >= level.length ? 1 : level[y + 1][x];
-    int xMinus1 = x - 1 < 0 ? 1 : level[y][x - 1];
-    int xPlus1 = x + 1 >= level[0].length ? 1 : level[y][x + 1];
+    int yMinus1 = y - 1 < 0 ? 1 : isNotGround(x, y - 1);
+    int yPlus1 = y + 1 >= level.length ? 1 : isNotGround(x, y + 1);
+    int xMinus1 = x - 1 < 0 ? 1 : isNotGround(x - 1, y);
+    int xPlus1 = x + 1 >= level[0].length ? 1 :isNotGround(x + 1, y);;
 
     if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) {     // check if floating
       return SPRITES[0];
@@ -70,10 +70,29 @@ class Level {
     if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top left
       return SPRITES[3];
     }
+    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if top left
+      return SPRITES[4];
+    } if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top left
+      return SPRITES[5];
+    }
+    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+      return SPRITES[6];
+    }
+     if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+      return SPRITES[7];
+    }
+      if (yMinus1 == 1 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+      return SPRITES[8];
+    }
+   
      return nullsprite;
   }
   
-  private boolean isAir(int x, int y) {} // returns air if the thing is anything but a ground
+  private int isNotGround(int x, int y) {
+    if (level[y][x] != 1)
+      return 0;
+    else return 1;
+  } // returns air if the thing is anything but a ground
   
   public int[] findSpawn() {
     for (int y = 0; y < level.length; y++) {
