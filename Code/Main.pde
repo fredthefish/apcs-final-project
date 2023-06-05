@@ -3,6 +3,7 @@ Level level;
 public int num = 1;
 
 //Circular hitbox?
+//If you hold jump, you go up higher
 
 void setup() {
   size(960, 960);
