@@ -67,25 +67,34 @@ class Level {
     if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if top left
       return SPRITES[2];
     }
-    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top left
+    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top right
       return SPRITES[3];
     }
-    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if top left
+    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if middle left
       return SPRITES[4];
-    } if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top left
+    } 
+    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if middle right
       return SPRITES[5];
     }
-    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top pillar
       return SPRITES[6];
     }
-     if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if middle pillar
       return SPRITES[7];
     }
-      if (yMinus1 == 1 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) { // check if top left
+    if (yMinus1 == 1 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) { // bottom pillar
       return SPRITES[8];
     }
-   
-     return nullsprite;
+    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 1) { // check if left platform
+      return SPRITES[9];
+    }
+    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 1 && xPlus1 == 1) { // check if middle platform
+      return SPRITES[10];
+    }
+    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 1 && xPlus1 == 0) { // check if right platform
+      return SPRITES[11];
+    }
+    return SPRITES[12];
   }
   
   private int isNotGround(int x, int y) {
