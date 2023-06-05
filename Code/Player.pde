@@ -2,8 +2,9 @@ final float AIR_RESISTANCE = 0.95;
 final float FRICTION = 0.65;
 final float GRAVITY = 1;
 final float MOVEMENT = 4;
-final float JUMP = 25;
-final float MAX_SLOPE = 8;
+final int JUMP_POWER = 20;
+final int JUMP_LENGTH = 8;
+final int MAX_SLOPE = 8;
 
 public boolean left;
 public boolean right;
@@ -16,6 +17,7 @@ class Player {
   float dy;
   public float extent;
   boolean canJump;
+  int jumpExtension;
   
   public Player() {
     Die();
@@ -33,6 +35,11 @@ class Player {
     if (keyPressed) {
       if (left) dx += -MOVEMENT;
       if (right) dx += MOVEMENT;
+      if (up && jumpExtension > 0) {
+        canJump = false;
+        dy = -JUMP_POWER;
+        jumpExtension--;
+      }
     }
     dx *= FRICTION;
     dy *= AIR_RESISTANCE;
@@ -58,7 +65,10 @@ class Player {
       y -= dy;
       if (dy < 0) canJump = false;
       dy = 0;
-      if (up && canJump) dy = -JUMP;
+      if (up && canJump) {
+        dy = -JUMP_POWER;
+        jumpExtension = JUMP_LENGTH;
+      }
     }
     if (getCollisions().contains(2)) Die();
     if (y > height) Die();
