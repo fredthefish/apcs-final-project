@@ -16,8 +16,10 @@ void setup() {
  loadImage("../Sprites/platform_left.png"),
  loadImage("../Sprites/platform_middle.png"),
  loadImage("../Sprites/platform_right.png"),
- loadImage("../Sprites/solid.png"),};
-  level = new Level("../Levels/2.png", sprites,  loadImage("../Sprites/bg.png"));
+ loadImage("../Sprites/solid.png"),
+ loadImage("../Sprites/lava.jpg"),
+  loadImage("../Sprites/chest.png")};
+  level = new Level("../Levels/1.png", sprites,  loadImage("../Sprites/bg.png"));
   level.drawLevel();
   player = new Player(level);
 }

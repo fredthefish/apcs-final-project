@@ -44,7 +44,7 @@ class Level {
         
         //Hide yellow tiles (spawn area).
         //if (type == #FFFF00) fill(#FFFFFF);
-        if (level[y][x] != 0 && level[y][x] != 4 && level[y][x] != 3 && level[y][x] != 2 /*&& returnSprite(x, y) != -1*/) { 
+        if (level[y][x] != 0 && level[y][x] != 4 /*&& returnSprite(x, y) != -1*/) { 
                 PImage sprite = returnSprite(x, y);
                 image(sprite, x * scale, y * scale);
           }
@@ -53,10 +53,18 @@ class Level {
   }
   //returns sprites based on tiles around it
   private PImage returnSprite(int x, int y) {
+    
+    if (level[y][x] == 2)
+      return SPRITES[13];
+    if (level[y][x] == 3)
+      return SPRITES[14];
+    
     int yMinus1 = y - 1 < 0 ? 1 : isNotGround(x, y - 1);
     int yPlus1 = y + 1 >= level.length ? 1 : isNotGround(x, y + 1);
     int xMinus1 = x - 1 < 0 ? 1 : isNotGround(x - 1, y);
     int xPlus1 = x + 1 >= level[0].length ? 1 :isNotGround(x + 1, y);;
+
+    
 
     if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) {     // check if floating
       return SPRITES[0];
