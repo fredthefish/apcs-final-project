@@ -1,13 +1,14 @@
 public Player player;
 Level level;
 public int num = 1;
+PImage[] sprites;
 
 //Circular hitbox?
 //If you hold jump, you go up higher
 
 void setup() {
   size(960, 960);
-  PImage[] sprites = new PImage[]{
+  sprites = new PImage[]{
   loadImage("../Sprites/floating.png"), 
   loadImage("../Sprites/top_ground.png"),
   loadImage("../Sprites/top_left.png"),
