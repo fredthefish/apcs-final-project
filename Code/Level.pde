@@ -5,6 +5,7 @@ class Level {
   PImage nullsprite = loadImage("../Sprites/nullsprite.png");
   public int[][] level;
   public int scale; // for each pixel in image, this many pixels should be drawn on screen
+  public ArrayList<int[]> playerCollisions;
   
   public Level(String imagePath, PImage[] sprites, PImage bg) {
     this.SPRITES = sprites;
@@ -37,17 +38,20 @@ class Level {
   }
   
   public void drawLevel() {
+    playerCollisions = new ArrayList<int[]>();
     noStroke();
     image(bg, 0, 0);
     for (int y = 0; y < level.length; ++y){
       for (int x = 0; x < level[0].length; ++x) {
-        
         //Hide yellow tiles (spawn area).
         //if (type == #FFFF00) fill(#FFFFFF);
         if (level[y][x] != 0 && level[y][x] != 4 /*&& returnSprite(x, y) != -1*/) { 
-                PImage sprite = returnSprite(x, y);
-                image(sprite, x * scale, y * scale);
-          }
+          PImage sprite = returnSprite(x, y);
+          image(sprite, x * scale, y * scale);
+        }
+        if (player != null)
+          if (Helpers.collision(player, x*scale, y*scale, scale))
+            playerCollisions.add(new int[] {x, y});
       }
     }
   }
@@ -110,6 +114,18 @@ class Level {
       return 0;
     else return 1;
   } // returns air if the thing is anything but a ground
+  
+  public ArrayList<int[]> getCollisions() {
+    playerCollisions = new ArrayList<int[]>();
+    for (int y = 0; y < level.length; ++y){
+      for (int x = 0; x < level[0].length; ++x) {
+        if (player != null)
+        if (Helpers.collision(player, x*scale, y*scale, scale))
+          playerCollisions.add(new int[] {x, y});
+      }
+    }
+    return playerCollisions;
+  }
   
   public int[] findSpawn() {
     for (int y = 0; y < level.length; y++) {
