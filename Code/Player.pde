@@ -32,7 +32,6 @@ class Player {
   
   void playerEngine() {
     dy += GRAVITY;
-    if (keyPressed) {
       if (left) dx += -MOVEMENT;
       if (right) dx += MOVEMENT;
       if (up && jumpExtension > 0) {
@@ -40,13 +39,14 @@ class Player {
         dy = -JUMP_POWER;
         jumpExtension--;
       }
-    }
+      else jumpExtension = 0;
     dx *= FRICTION;
     dy *= AIR_RESISTANCE;
     x += dx;
     y += dy;
     int i;
     canJump = false;
+    //Move out of ground
     for (i = 0; i < MAX_SLOPE; i++) {
       if (getCollisions().contains(1)) {
         y -= 1;
@@ -55,6 +55,7 @@ class Player {
       else break;
     }
     y += 1;
+    //Wall Detection
     if (i == MAX_SLOPE) {
       y += MAX_SLOPE;
       x -= dx;
@@ -63,8 +64,16 @@ class Player {
     }
     if (getCollisions().contains(1)) {
       y -= dy;
-      if (dy < 0) canJump = false;
+      //Ceiling detection
+      if (dy < 0) {
+        canJump = false;
+        for (i = 0; i < -dy; i++)
+          if (!getCollisions().contains(1))
+            y -= 1;
+        y += 1;
+      }
       dy = 0;
+      //Jumping
       if (up && canJump) {
         dy = -JUMP_POWER;
         jumpExtension = JUMP_LENGTH;
