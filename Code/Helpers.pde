@@ -28,4 +28,7 @@ static class Helpers {
      x - r < tilex + size &&
      y - r < tiley + size);
   }
+  
+  // floating
+  
 }
