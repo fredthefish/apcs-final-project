@@ -46,7 +46,8 @@ class Level {
         //Hide yellow tiles (spawn area).
         //if (type == #FFFF00) fill(#FFFFFF);
         if (level[y][x] != 0 && level[y][x] != 4 /*&& returnSprite(x, y) != -1*/) { 
-          PImage sprite = returnSprite(x, y);
+          PImage sprite = SPRITES[level[y][x] - 1];
+          sprite.resize(60,60);
           image(sprite, x * scale, y * scale);
         }
         if (player != null)
@@ -56,58 +57,14 @@ class Level {
     }
   }
   //returns sprites based on tiles around it
-  private PImage returnSprite(int x, int y) {
-    
-    if (level[y][x] == 2)
-      return SPRITES[13];
-    if (level[y][x] == 3)
-      return SPRITES[14];
-    
-    int yMinus1 = y - 1 < 0 ? 1 : isNotGround(x, y - 1);
-    int yPlus1 = y + 1 >= level.length ? 1 : isNotGround(x, y + 1);
-    int xMinus1 = x - 1 < 0 ? 1 : isNotGround(x - 1, y);
-    int xPlus1 = x + 1 >= level[0].length ? 1 :isNotGround(x + 1, y);;
-
-    
-
-    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) {     // check if floating
-      return SPRITES[0];
-    }
-    if (yMinus1 == 0 && yPlus1 == 1 && xPlus1 == 1 && xMinus1 == 1) { // check if top ground
-      return SPRITES[1];
-    } 
-    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if top left
-      return SPRITES[2];
-    }
-    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if top right
-      return SPRITES[3];
-    }
-    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 1) { // check if middle left
-      return SPRITES[4];
-    } 
-    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 1 && xPlus1 == 0) { // check if middle right
-      return SPRITES[5];
-    }
-    if (yMinus1 == 0 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if top pillar
-      return SPRITES[6];
-    }
-    if (yMinus1 == 1 && yPlus1 == 1 && xMinus1 == 0 && xPlus1 == 0) { // check if middle pillar
-      return SPRITES[7];
-    }
-    if (yMinus1 == 1 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 0) { // bottom pillar
-      return SPRITES[8];
-    }
-    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 0 && xPlus1 == 1) { // check if left platform
-      return SPRITES[9];
-    }
-    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 1 && xPlus1 == 1) { // check if middle platform
-      return SPRITES[10];
-    }
-    if (yMinus1 == 0 && yPlus1 == 0 && xMinus1 == 1 && xPlus1 == 0) { // check if right platform
-      return SPRITES[11];
-    }
-    return SPRITES[12];
-  }
+  //private PImage returnSprite(int x, int y) {
+  //  if (level[y][x] == 1)
+  //    return SPRITES[0];
+  //  if (level[y][x] == 2)
+  //    return SPRITES[1];
+  //  if (level[y][x] == 3)
+  //    return SPRITES[2];   
+  //}
   
   private int isNotGround(int x, int y) {
     if (level[y][x] != 1)
