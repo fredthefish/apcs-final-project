@@ -1,7 +1,7 @@
 public Player player;
-Level level;
+public Level level;
 public int num = 1;
-PImage[] sprites;
+public PImage[] sprites;
 
 //Circular hitbox?
 //If you hold jump, you go up higher
